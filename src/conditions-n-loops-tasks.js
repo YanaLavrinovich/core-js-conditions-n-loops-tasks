@@ -216,8 +216,55 @@ function convertToRomanNumerals(num) {
  *  '10,5'    => 'one zero point five'
  *  '1950.2'  => 'one nine five zero point two'
  */
-function convertNumberToString(/* numberStr */) {
-  throw new Error('Not implemented');
+function convertNumberToString(numberStr) {
+  let result = '';
+  for (let index = 0; index < numberStr.length; index += 1) {
+    if (result.length > 0) {
+      result += ' ';
+    }
+    switch (numberStr[index]) {
+      case '-':
+        result += 'minus';
+        break;
+      case '.':
+      case ',':
+        result += 'point';
+        break;
+      case '1':
+        result += 'one';
+        break;
+      case '2':
+        result += 'two';
+        break;
+      case '3':
+        result += 'three';
+        break;
+      case '4':
+        result += 'four';
+        break;
+      case '5':
+        result += 'five';
+        break;
+      case '6':
+        result += 'six';
+        break;
+      case '7':
+        result += 'seven';
+        break;
+      case '8':
+        result += 'eight';
+        break;
+      case '9':
+        result += 'nine';
+        break;
+      case '0':
+        result += 'zero';
+        break;
+      default:
+        break;
+    }
+  }
+  return result;
 }
 
 /**
@@ -279,8 +326,22 @@ function getIndexOf(str, letter) {
  *  12345, 0    => false
  *  12345, 6    => false
  */
-function isContainNumber(/* num, digit */) {
-  throw new Error('Not implemented');
+function isContainNumber(num, digit) {
+  const numStr = String(num);
+  for (let index = 0; index < numStr.length; index += 1) {
+    if (numStr[index] === String(digit)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function getSumOfNumbers(arr, start, end) {
+  let sum = 0;
+  for (let index = start; index < end; index += 1) {
+    sum += arr[index];
+  }
+  return sum;
 }
 
 /**
@@ -296,8 +357,15 @@ function isContainNumber(/* num, digit */) {
  *  [2, 3, 9, 5] => 2       => 2 + 3 === 5 then balance element is 9 and its index = 2
  *  [1, 2, 3, 4, 5] => -1   => no balance element
  */
-function getBalanceIndex(/* arr */) {
-  throw new Error('Not implemented');
+function getBalanceIndex(arr) {
+  for (let index = 0; index < arr.length; index += 1) {
+    const leftSum = getSumOfNumbers(arr, 0, index);
+    const rightSum = getSumOfNumbers(arr, index + 1, arr.length);
+    if (leftSum === rightSum) {
+      return index;
+    }
+  }
+  return -1;
 }
 
 /**

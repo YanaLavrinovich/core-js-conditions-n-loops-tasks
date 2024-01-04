@@ -68,8 +68,36 @@ function getMaxNumber(a, b, c) {
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  */
-function canQueenCaptureKing(/* queen, king */) {
-  throw new Error('Not implemented');
+function canQueenCaptureKing(queen, king) {
+  if (queen.x === king.x || queen.y === king.y) {
+    return true;
+  }
+
+  if (Math.abs(king.x - queen.x) === Math.abs(king.y - queen.y)) {
+    return true;
+  }
+  return false;
+}
+
+function getMaxLenght(a, b, c) {
+  let max = a;
+  max = a > b ? a : b;
+  return max > c ? max : c;
+}
+
+function getSideLength(a, b, c) {
+  if (a === b) {
+    return a;
+  }
+  if (a === c) {
+    return a;
+  }
+
+  if (b === c) {
+    return b;
+  }
+
+  return 0;
 }
 
 /**
@@ -90,8 +118,21 @@ function canQueenCaptureKing(/* queen, king */) {
  *  2, 2, 5   => false
  *  3, 0, 3   => false
  */
-function isIsoscelesTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+function isIsoscelesTriangle(a, b, c) {
+  if (a === 0 || b === 0 || c === 0) {
+    return false;
+  }
+
+  if (a === b || a === c || b === c) {
+    const max = getMaxLenght(a, b, c);
+    const sideLenght = getSideLength(a, b, c);
+    if (sideLenght + sideLenght < max) {
+      return false;
+    }
+    return true;
+  }
+
+  return false;
 }
 
 /**
@@ -108,8 +149,56 @@ function isIsoscelesTriangle(/* a, b, c */) {
  *  10  => X
  *  26  => XXVI
  */
-function convertToRomanNumerals(/* num */) {
-  throw new Error('Not implemented');
+function convertToRomanNumerals(num) {
+  const numString = String(num);
+  let result = '';
+  for (let index = 0; index < numString.length; index += 1) {
+    switch (numString[index]) {
+      case '1':
+        result +=
+          (index === 0 && numString.length === 1) ||
+          (index !== 0 && numString.length > 1)
+            ? 'I'
+            : 'X';
+        break;
+      case '2':
+        result +=
+          (index === 0 && numString.length === 1) ||
+          (index !== 0 && numString.length > 1)
+            ? 'II'
+            : 'XX';
+        break;
+      case '3':
+        result +=
+          (index === 0 && numString.length === 1) ||
+          (index !== 0 && numString.length > 1)
+            ? 'III'
+            : 'XXX';
+        break;
+      case '4':
+        result += 'IV';
+        break;
+      case '5':
+        result += 'V';
+        break;
+      case '6':
+        result += 'VI';
+        break;
+      case '7':
+        result += 'VII';
+        break;
+      case '8':
+        result += 'VIII';
+        break;
+      case '9':
+        result += 'IX';
+        break;
+      default:
+        result += '';
+        break;
+    }
+  }
+  return result;
 }
 
 /**

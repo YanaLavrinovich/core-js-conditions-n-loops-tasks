@@ -393,6 +393,15 @@ function getSpiralMatrix(/* size */) {
   throw new Error('Not implemented');
 }
 
+// function createEmptyMatrix(length) {
+//   const newMatrix = [];
+//   for (let index = 0; index < length; index += 1) {
+//     newMatrix[index] = [0, 0, 0];
+//   }
+
+//   return newMatrix;
+// }
+
 /**
  * Rotates a matrix by 90 degrees clockwise in place.
  * Take into account that the matrix size can be very large. Consider how you can optimize your solution.
@@ -409,6 +418,18 @@ function getSpiralMatrix(/* size */) {
  *  ]                 ]
  */
 function rotateMatrix(/* matrix */) {
+  // const swapRowAndColumn = createEmptyMatrix(matrix.length);
+  // for (let y = 0; y < matrix.length; y += 1) {
+  //   for (let x = 0; x < matrix[y].length; x += 1) {
+  //     swapRowAndColumn[x][y] = matrix[y][x];
+  //   }
+  // }
+
+  // for (let y = 0; y < swapRowAndColumn.length; y += 1) {
+  //   for (let x = swapRowAndColumn.length - 1; x >= 0; x -= 1) {
+  //     matrix[x][y] = swapRowAndColumn[y][x];
+  //   }
+  // }
   throw new Error('Not implemented');
 }
 
@@ -428,6 +449,16 @@ function rotateMatrix(/* matrix */) {
  */
 function sortByAsc(/* arr */) {
   throw new Error('Not implemented');
+  // for (let x = 0; x < arr.length - 1; x += 1) {
+  //   for (let y = 0; y < arr.length - y - 1; y += 1) {
+  //     const needSwap = arr[y] > arr[y + 1];
+  //     if (needSwap) {
+  //       const temp = arr[y];
+  //       arr[y] = arr[y + 1];
+  //       arr[y + 1] = temp;
+  //     }
+  //   }
+  // }
 }
 
 /**
@@ -468,8 +499,49 @@ function shuffleChar(/* str, iterations */) {
  * @param {number} number The source number
  * @returns {number} The nearest larger number, or original number if none exists.
  */
-function getNearestBigger(/* number */) {
-  throw new Error('Not implemented');
+function getNearestBigger(number) {
+  const arr = [...String(number)];
+  let minDigit = -1;
+  let minIndex = -1;
+  for (let index = arr.length - 1; index >= 0; index -= 1) {
+    if (arr[index - 1] < arr[index]) {
+      minDigit = arr[index - 1];
+      minIndex = index - 1;
+      break;
+    }
+  }
+  if (minDigit === -1 || minIndex === -1) {
+    return number;
+  }
+
+  let minInRightPart = arr[minIndex + 1];
+  let minInRightPartIndex = minIndex + 1;
+  for (let index = minIndex + 1; index < arr.length; index += 1) {
+    if (arr[index] > minDigit && arr[index] < minInRightPart) {
+      minInRightPart = arr[index];
+      minInRightPartIndex = index;
+    }
+  }
+
+  const temp = minDigit;
+  arr[minIndex] = minInRightPart;
+  arr[minInRightPartIndex] = temp;
+
+  let sortedPart = [];
+  for (let index = minIndex + 1; index < arr.length; index += 1) {
+    sortedPart.push(arr[index]);
+  }
+
+  let resultStr = '';
+  for (let index = 0; index < minIndex + 1; index += 1) {
+    resultStr += arr[index];
+  }
+  sortedPart = sortedPart.sort();
+  for (let index = 0; index < sortedPart.length; index += 1) {
+    resultStr += sortedPart[index];
+  }
+
+  return Number(resultStr);
 }
 
 module.exports = {

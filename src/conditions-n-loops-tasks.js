@@ -393,15 +393,6 @@ function getSpiralMatrix(/* size */) {
   throw new Error('Not implemented');
 }
 
-// function createEmptyMatrix(length) {
-//   const newMatrix = [];
-//   for (let index = 0; index < length; index += 1) {
-//     newMatrix[index] = [0, 0, 0];
-//   }
-
-//   return newMatrix;
-// }
-
 /**
  * Rotates a matrix by 90 degrees clockwise in place.
  * Take into account that the matrix size can be very large. Consider how you can optimize your solution.
@@ -417,20 +408,30 @@ function getSpiralMatrix(/* size */) {
  *    [7, 8, 9]         [9, 6, 3]
  *  ]                 ]
  */
-function rotateMatrix(/* matrix */) {
-  // const swapRowAndColumn = createEmptyMatrix(matrix.length);
-  // for (let y = 0; y < matrix.length; y += 1) {
-  //   for (let x = 0; x < matrix[y].length; x += 1) {
-  //     swapRowAndColumn[x][y] = matrix[y][x];
-  //   }
-  // }
 
-  // for (let y = 0; y < swapRowAndColumn.length; y += 1) {
-  //   for (let x = swapRowAndColumn.length - 1; x >= 0; x -= 1) {
-  //     matrix[x][y] = swapRowAndColumn[y][x];
-  //   }
-  // }
-  throw new Error('Not implemented');
+function createEmptyMatrix(length) {
+  const newMatrix = [];
+  for (let index = 0; index < length; index += 1) {
+    newMatrix[index] = [0, 0, 0];
+  }
+
+  return newMatrix;
+}
+
+function rotateMatrix(matrix) {
+  const localMatrix = matrix;
+  const swapRowAndColumn = createEmptyMatrix(localMatrix.length);
+  for (let y = 0; y < localMatrix.length; y += 1) {
+    for (let x = 0; x < localMatrix[y].length; x += 1) {
+      swapRowAndColumn[x][y] = matrix[y][x];
+    }
+  }
+
+  for (let y = 0; y < swapRowAndColumn.length; y += 1) {
+    for (let x = swapRowAndColumn.length - 1; x >= 0; x -= 1) {
+      localMatrix[y][swapRowAndColumn.length - x - 1] = swapRowAndColumn[y][x];
+    }
+  }
 }
 
 /**
